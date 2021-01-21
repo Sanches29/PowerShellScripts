@@ -4,6 +4,23 @@ $appServicePlanName = $null
 Write-Host "Login na conta do PortalAzure"
 az login
 
+Write-Host "Esta na subscription correta?"
+az account show
+$subscriptionCorreta = Read-Host "Responda com S ou N"
+if($subscriptionCorreta -eq "N"){
+   $subscription = az account list | ConvertFrom-Json
+   [int]$aux = 0
+   foreach($sub in $subscription){
+   $aux
+   $sub
+   $aux = $aux + 1      
+   }
+   $numeroDaSubEscolhida = Read-Host "Digite o numero da subscription escolhida"
+   az account set --subscription $subscription[$numeroDaSubEscolhida].id
+}
+az account show
+Read-Host "Continue?"
+
 $ExisteResourceGroup = Read-Host "Ja possui Resource Group? S ou N"
 
 if($ExisteResourceGroup -eq "S"){
